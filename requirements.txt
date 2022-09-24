@@ -1,0 +1,3 @@
+python-whois
+tldextract
+google-search-results
