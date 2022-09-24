@@ -5,6 +5,10 @@
 
 DMSH is a quick Python script to iterate through a list of domains (one line = one domain), check if the domain can be registered, and optionally assess how popular the domain was based on a Google search. There are many possible applications for this, but DMSH was created specifically to hunt for expired domains that had hosted mailservers, so that any lingering email sent to it can be caught.
 
+Looking for registrable domains among the following could be especially fruitful:
+* Matt Ketmo's EmailChecker package and its list of [throwaway domains](https://github.com/MattKetmo/EmailChecker/blob/master/res/throwaway_domains.txt)
+* Ozan Bayram's massive list of [free email provider domains](https://gist.github.com/okutbay/5b4974b70673dfdcc21c517632c1f984)
+
 ### Recommendations
 
 This tool was inspired by [this Reddit post](https://www.reddit.com/r/cybersecurity/comments/xm8qtm/legality_of_making_an_email_feed_from_by_using/) on the legal/ethical considerations of registering old domains and publishing any incoming email, so it's fitting that it should come with a usage warning.
