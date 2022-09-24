@@ -15,7 +15,7 @@ Please use any expired domain you purchase responsibly and ethically. **Everyone
 
 ```
 % python3 dmsh.py --help
-usage: scout.py [-h] --file FILE [--sleep SLEEP] [--key KEY]
+usage: dmsh.py [-h] --file FILE [--sleep SLEEP] [--key KEY]
 
 Checks if any domains in a list are expired, and optionally evaluates how popular each domain was
 
