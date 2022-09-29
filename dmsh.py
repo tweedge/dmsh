@@ -3,6 +3,7 @@ import tldextract
 from time import sleep
 from whois import whois
 from serpapi import GoogleSearch
+from pprint import pprint
 
 parser = argparse.ArgumentParser(
     description=(
@@ -26,6 +27,12 @@ parser.add_argument(
     help="Optional: SerpApi key if you want to quickly check how popular a domain might be",
     type=str,
     default="",
+)
+parser.add_argument(
+    "--debug",
+    help="Optional: Pretty print WHOIS data and exceptions returned",
+    type=bool,
+    default=False,
 )
 
 
@@ -54,14 +61,23 @@ print(f"Looking up {domains_count} domains (from {lines_count} lines)")
 for domain in domains:
     sleep(args.sleep / 1000)
     exists = True
+    who = None
+
     try:
-        whois(domain)
+        who = whois(domain)
     except Exception as e:
+        if args.debug:
+            print(f"Exception returned when looking up {domain}:")
+            pprint(e)
         exception_str = str(e)
         if exception_str.startswith("No match for"):
             exists = False
 
-    if exists:
+    if args.debug:
+        print(f"WHOIS data returned when looking up {domain}:")
+        pprint(who)
+
+    if who["registrar"]:
         continue
 
     total_results = 0

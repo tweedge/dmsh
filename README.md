@@ -19,7 +19,7 @@ Please use any expired domain you purchase responsibly and ethically. **Everyone
 
 ```
 % python3 dmsh.py --help
-usage: dmsh.py [-h] --file FILE [--sleep SLEEP] [--key KEY]
+usage: dmsh.py [-h] --file FILE [--sleep SLEEP] [--key KEY] [--debug DEBUG]
 
 Checks if any domains in a list are expired, and optionally evaluates how popular each domain was
 
@@ -28,6 +28,7 @@ options:
   --file FILE    File to read, where 1 line = 1 domain to check
   --sleep SLEEP  Optional: How long to sleep between whois queries (in milliseconds)
   --key KEY      Optional: SerpApi key if you want to quickly check how popular a domain might be
+  --debug DEBUG  Optional: Pretty print WHOIS data and exceptions returned
 ```
 
 Using [SerpApi](https://serpapi.com/) to check how popular domains might be is *completely optional*. It is a search engine scraper with a reasonable free plan for this task (100 searches/month), and without providing a key, DMSH will work normally to identify expired domains, but not their popularity.
