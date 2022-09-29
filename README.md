@@ -11,7 +11,7 @@ Looking for registrable domains among the following could be especially fruitful
 
 ### Recommendations
 
-This tool was inspired by [this Reddit post](https://www.reddit.com/r/cybersecurity/comments/xm8qtm/legality_of_making_an_email_feed_from_by_using/) on the legal/ethical considerations of registering old domains and publishing any incoming email, so it's fitting that it should come with a usage warning.
+This tool was inspired by [this Reddit post](https://www.reddit.com/r/cybersecurity/comments/xm8qtm/legality_of_making_an_email_feed_from_by_using/) on the legal/ethical considerations of registering old domains and publishing any incoming email, so it's fitting that it should come with a note about that.
 
 Please use any expired domain you purchase responsibly and ethically. **Everyone deserves privacy.** Any email you collect from a registered domain should be reviewed for a specific purpose (ex. malware to research, spam to publish, statistics to track, etc.) and any identified PII should be deleted on discovery.
 
