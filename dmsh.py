@@ -63,7 +63,12 @@ for domain in domains:
     exists = True
     who = None
 
-    registrable_exceptions = ["No match", "No entries found", "No data found"]
+    registrable_exceptions = [
+        "No match",
+        "No entries found",
+        "No data found",
+        "NOT FOUND",
+    ]
 
     try:
         who = whois(domain)
