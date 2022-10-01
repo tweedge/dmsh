@@ -68,6 +68,8 @@ for domain in domains:
         "No entries found",
         "No data found",
         "NOT FOUND",
+        "We do not have an entry in our database",
+        "Status: free",
     ]
 
     try:
