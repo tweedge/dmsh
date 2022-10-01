@@ -63,7 +63,7 @@ for domain in domains:
     exists = True
     who = None
 
-    registrable_exceptions = ["No match"]
+    registrable_exceptions = ["No match", "No entries found", "No data found"]
 
     try:
         who = whois(domain)
@@ -75,21 +75,27 @@ for domain in domains:
         exception_str = str(e)
         for exceptions_check in registrable_exceptions:
             if exceptions_check.lower() in exception_str.lower():
+                if args.debug:
+                    print(f"Match found: '{exceptions_check}' - domain DNE")
                 exists = False
 
-    if not exists:
-        continue
+        if exists:
+            if args.debug:
+                print(f"No match found, unclear if domain DNE")
+            continue
 
-    if not who:
-        print(f"Unrecognized exception, {domain} may or may not be registrable")
-        continue
+    if who:
+        if args.debug:
+            print(f"WHOIS data returned when looking up {domain}:")
+            pprint(who)
 
-    if args.debug:
-        print(f"WHOIS data returned when looking up {domain}:")
-        pprint(who)
+        if "registrar" in who.keys():
+            if who["registrar"]:
+                continue
 
-    if who["registrar"]:
-        continue
+        if "status" in who.keys():
+            if who["status"]:
+                continue
 
     total_results = 0
     try:
