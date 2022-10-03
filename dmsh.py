@@ -70,6 +70,11 @@ for domain in domains:
         "NOT FOUND",
         "We do not have an entry in our database",
         "Status: free",
+        "No information available",
+        "El dominio no se encuentra registrado",
+        "No such domain",
+        "No information was found matching that query",
+        "domain has not been registered",
     ]
 
     try:
