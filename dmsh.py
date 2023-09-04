@@ -1,9 +1,9 @@
 import argparse
 import tldextract
 from time import sleep
-from whois import whois
+from PyFunceble import DomainAvailabilityChecker
 from serpapi import GoogleSearch
-from pprint import pprint
+
 
 parser = argparse.ArgumentParser(
     description=(
@@ -28,18 +28,14 @@ parser.add_argument(
     type=str,
     default="",
 )
-parser.add_argument(
-    "--debug",
-    help="Optional: Pretty print WHOIS data and exceptions returned",
-    type=bool,
-    default=False,
-)
 
 
 args = parser.parse_args()
 
 
 extract = tldextract.TLDExtract()
+checker = DomainAvailabilityChecker()
+
 
 file_handle = open(args.file, "r")
 file_lines = file_handle.readlines()
@@ -56,58 +52,15 @@ for line in file_lines:
             domains_count += 1
             domains.add(domain)
 
-print(f"Looking up {domains_count} domains (from {lines_count} lines)")
+print(f"Looking up {domains_count} unique domains (from {lines_count} lines)")
 
 for domain in domains:
     sleep(args.sleep / 1000)
-    exists = True
-    who = None
+    domain_details = checker.set_subject(domain).get_status()
+    domain_status = domain_details.status
 
-    registrable_exceptions = [
-        "No match",
-        "No entries found",
-        "No data found",
-        "NOT FOUND",
-        "We do not have an entry in our database",
-        "Status: free",
-        "No information available",
-        "El dominio no se encuentra registrado",
-        "No such domain",
-        "No information was found matching that query",
-        "domain has not been registered",
-    ]
-
-    try:
-        who = whois(domain)
-    except Exception as e:
-        if args.debug:
-            print(f"Exception returned when looking up {domain}:")
-            pprint(e)
-
-        exception_str = str(e)
-        for exceptions_check in registrable_exceptions:
-            if exceptions_check.lower() in exception_str.lower():
-                if args.debug:
-                    print(f"Match found: '{exceptions_check}' - domain DNE")
-                exists = False
-
-        if exists:
-            if args.debug:
-                print(f"No match found, unclear if domain DNE")
-            continue
-
-    if who:
-        if args.debug:
-            print(f"WHOIS data returned when looking up {domain}:")
-            pprint(who)
-
-        if "registrar" in who.keys():
-            if who["registrar"]:
-                continue
-
-        if "status" in who.keys():
-            if who["status"]:
-                continue
+    if domain_status != "INACTIVE":
+        continue
 
     total_results = 0
     try:
