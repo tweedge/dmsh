@@ -2,7 +2,7 @@
 
 [![Code Style](https://img.shields.io/badge/code%20style-black-black)](https://github.com/psf/black)
 [![Written By](https://img.shields.io/badge/written%20by-some%20nerd-red.svg)](https://chris.partridge.tech)
-[![Author Also Writes On](https://img.shields.io/mastodon/follow/108210086817505115?domain=https%3A%2F%2Fcybersecurity.theater)](https://cybersecurity.theater/)
+[![Author Also Writes On](https://img.shields.io/mastodon/follow/108210086817505115?domain=https%3A%2F%2Fcybersecurity.theater)](https://cybersecurity.theater/@tweedge)
 
 DMSH is a quick Python script to iterate through a list of domains and check if the domain can be registered. There are many possible applications for this, but DMSH was created specifically to hunt for expired domains that had hosted mailservers, so that any lingering email sent to it can be caught.
 
@@ -27,10 +27,10 @@ usage: dmsh.py [-h] --file FILE [--sleep FLOAT] [--only INTEGER]
 Checks if any domains in a list are expired
 
 options:
-  -h, --help     Show this help message and exit
-  --file FILE    File containing domains
-  --sleep FLOAT  Optional: Sleep [x] seconds between WHOIS queries (default: 1)
-  --only INTEGER Optional: Only check the first [x] domains (default: check all)
+  -h, --help      Show this help message and exit
+  --file FILE     File containing domains
+  --sleep FLOAT   Optional: Sleep [x] seconds between WHOIS queries (default: 1)
+  --only INTEGER  Optional: Only check the first [x] domains (default: check all)
 ```
 
 Files can be formatted **either** as just a list of domains:
