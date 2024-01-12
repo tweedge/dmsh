@@ -34,13 +34,11 @@ checker = DomainAvailabilityChecker()
 unique_domains = set()
 domain_data = []
 
-lines_count = 0
 with open(args.file) as file:
     while line := file.readline():
         if len(unique_domains) >= args.only and args.only > 0:
             break
 
-        lines_count += 1
         line = line.strip()
         if not line:
             continue
@@ -59,11 +57,9 @@ with open(args.file) as file:
                 continue
 
             unique_domains.add(domain)
-            domain_data.append([domain, split_line[0]])
+            domain_data.append([domain, int(split_line[0])])
         else:
-            print(f"Line format not recognized: {line}")
-
-print(f"Looking up {len(unique_domains)} unique domains (from {lines_count} lines)")
+            print(f"error: line format not recognized: {line}")
 
 for domain_datum in domain_data:
     domain = domain_datum[0]
