@@ -49,8 +49,8 @@ wow_bill_your_mom_let_you_have_three_domains
 1 exceedingly_unpopular_domain
 ```
 
-So for example, after downloading and extracting `email_domains_by_popularity.txt` ([ref](https://chris.partridge.tech/data/most-popular-email-domains-collections-1-5-etc/)) you might check the top 1,000 domains for expiries and wait 0.1s between each lookup using:
+So for example, after downloading and extracting `email_domains_by_popularity.txt` ([ref](https://chris.partridge.tech/data/most-popular-email-domains-collections-1-5-etc/)) you might check the top 2,000 entries for expired domains, waiting 0.1s between each lookup, using:
 
 ```
-% python3 dmsh.py --file email_domains_by_popularity.txt --only 1000 --sleep 0.1
+% python3 dmsh.py --file email_domains_by_popularity.txt --only 2000 --sleep 0.1
 ```
