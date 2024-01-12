@@ -74,6 +74,6 @@ for domain_datum in domain_data:
         continue
 
     if rank > 0:
-        print(f"{rank} {domain} is registrable")
+        print(f"{rank} {domain} may be registrable")
     else:
-        print(f"{domain} is registrable")
+        print(f"{domain} may be registrable")
