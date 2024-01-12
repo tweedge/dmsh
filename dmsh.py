@@ -5,9 +5,7 @@ from PyFunceble import DomainAvailabilityChecker
 
 
 parser = argparse.ArgumentParser(
-    description=(
-        "Checks if any domains in a list are expired"
-    )
+    description=("Checks if any domains in a list are expired")
 )
 parser.add_argument(
     "--file",
