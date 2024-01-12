@@ -2,10 +2,13 @@
 
 [![Code Style](https://img.shields.io/badge/code%20style-black-black)](https://github.com/psf/black)
 [![Written By](https://img.shields.io/badge/written%20by-some%20nerd-red.svg)](https://chris.partridge.tech)
+[![Author Also Writes On](https://img.shields.io/mastodon/follow/108210086817505115?domain=https%3A%2F%2Fcybersecurity.theater)](https://cybersecurity.theater/)
 
-DMSH is a quick Python script to iterate through a list of domains (one line = one domain), check if the domain can be registered, and optionally assess how popular the domain was based on a Google search. There are many possible applications for this, but DMSH was created specifically to hunt for expired domains that had hosted mailservers, so that any lingering email sent to it can be caught.
+DMSH is a quick Python script to iterate through a list of domains and check if the domain can be registered. There are many possible applications for this, but DMSH was created specifically to hunt for expired domains that had hosted mailservers, so that any lingering email sent to it can be caught.
 
-Looking for registrable domains among the following could be especially fruitful:
+After some trial and error, I've found that the best way is to find expired domains that appeared often in major breaches. I computed and released a list of the [most popular email domains](https://chris.partridge.tech/data/most-popular-email-domains-collections-1-5-etc/) found in Collection 1-5, ANTIPUBLIC, MYR, and Zabugor breach compilations - please feel free to leverage it in your research.
+
+Though my original - and still valid! - tactic was to look at email domain lists, such as those used by some webmasters to fight SEO spam or potentially unwanted accounts:
 * Matt Ketmo's EmailChecker package and its list of [throwaway domains](https://github.com/MattKetmo/EmailChecker/blob/master/res/throwaway_domains.txt)
 * Ozan Bayram's massive list of [free email provider domains](https://gist.github.com/okutbay/5b4974b70673dfdcc21c517632c1f984)
 
@@ -19,35 +22,35 @@ Please use any expired domain you purchase responsibly and ethically. **Everyone
 
 ```
 % python3 dmsh.py --help
-usage: dmsh.py [-h] --file FILE [--sleep SLEEP] [--key KEY]
+usage: dmsh.py [-h] --file FILE [--sleep FLOAT] [--only INTEGER]
 
-Checks if any domains in a list are expired, and optionally evaluates how popular each domain was
+Checks if any domains in a list are expired
 
 options:
-  -h, --help     show this help message and exit
-  --file FILE    File to read, where 1 line = 1 domain to check
-  --sleep SLEEP  Optional: How long to sleep between whois queries (in milliseconds)
-  --key KEY      Optional: SerpApi key if you want to quickly check how popular a domain might be
+  -h, --help     Show this help message and exit
+  --file FILE    File containing domains
+  --sleep FLOAT  Optional: Sleep [x] seconds between WHOIS queries (default: 1)
+  --only INTEGER Optional: Only check the first [x] domains (default: check all)
 ```
 
-Using [SerpApi](https://serpapi.com/) to check how popular domains might be is *completely optional*. It is a search engine scraper with a reasonable free plan for this task (100 searches/month), and without providing a key, DMSH will work normally to identify expired domains, but not their popularity.
-
-### Caveats
-
-Google may not be the "right" tool for determining mailserver popularity, as Google's "search for a specific string in quotes" trick no longer works to match that string exactly in 100% of cases. While most domains will be accurate (typically, domains without a dash in them):
+Files can be formatted **either** as just a list of domains:
 
 ```
-kimsdisk.com is registrable (381 results on Google)
-commail2molly.com is registrable (308 results on Google)
-verticalheaven.com is registrable (71 results on Google)
+domain
+another_domain
+wow_bill_your_mom_let_you_have_three_domains
 ```
 
-Some domains will show far more results on Google because Google is no longer attempting to match the string exactly, such as:
+**or** you can have an integer preceeding the domain, ex. how many times that domain appeared in a breach, or how popular it is relative to other domains:
 
 ```
-women-only.net is registrable (82100 results on Google)
-from-italy.net is registrable (24300 results on Google)
-fire-brigade.com is registrable (8320 results on Google)
+100 domain
+90 another_domain
+1 exceedingly_unpopular_domain
 ```
 
-However considering that backlink tools wouldn't be relevant (mail servers may not have many backlinks), and domain popularity tools would be out-of-date for any expired domains, this is "good enough." Just take any results with a grain of salt.
+So for example, after downloading and extracting `email_domains_by_popularity.txt` ([ref](https://chris.partridge.tech/data/most-popular-email-domains-collections-1-5-etc/)) you might check the top 1,000 domains for expiries and wait 0.1s between each lookup using:
+
+```
+% python3 dmsh.py --file email_domains_by_popularity.txt --only 1000 --sleep 0.1
+```

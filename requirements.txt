@@ -1,3 +1,2 @@
 tldextract
-google-search-results
 pyfunceble
