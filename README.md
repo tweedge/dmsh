@@ -54,3 +54,5 @@ So for example, after downloading and extracting `email_domains_by_popularity.tx
 ```
 % python3 dmsh.py --file email_domains_by_popularity.txt --only 2000 --sleep 0.1
 ```
+
+Any large scans (>1k domains) will take a while - be patient.
